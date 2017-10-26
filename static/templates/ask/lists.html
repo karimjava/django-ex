@@ -1,0 +1,110 @@
+<!--<script type="text/ng-template" id="askerTemplate.html">
+    <a style="float: right;text-align: right;">
+        <span  class="droidFont" style="height:40">{{match.model.name}}</span>
+        <img ng-src="{{match.model.image_path}}" class="imageRoundCustom" width="40" height="40">
+    </a>
+</script>-->
+<div class="dimmed" ng-show="showLoading" ></div>
+<div class="sk-cube-grid" style="width:60;height:60px" ng-show="showLoading">
+  <div class="sk-cube sk-cube1"></div>
+  <div class="sk-cube sk-cube2"></div>
+  <div class="sk-cube sk-cube3"></div>
+  <div class="sk-cube sk-cube4"></div>
+  <div class="sk-cube sk-cube5"></div>
+  <div class="sk-cube sk-cube6"></div>
+  <div class="sk-cube sk-cube7"></div>
+  <div class="sk-cube sk-cube8"></div>
+  <div class="sk-cube sk-cube9"></div>
+</div>
+
+
+<nav class="navbar navbar-default navbarColor"  ng-init="getAskers()">
+    <div >
+        <!-- Brand and toggle get grouped for better mobile display -->
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="container">
+
+
+            <bs-select ng-model="asker" class="askerSelector col-sm-4 col-md-3 col-xs-12" default-text="من فضلك اختر حساب" text-field="name" value-field="id" items="askers"></bs-select>
+
+
+            <form  class="col-sm-7 col-xs-12 "  role="search" ng-submit="getQuestions(q,asker)" style="float: right !important;margin-top: 0px; padding-left: 0px; ">
+                <div class="form-group">
+                    <input  type="text" ng-minlength="4" ng-model="q" ng-model-options="{debounce: {'default': 1000, 'blur': 0}}" ng-disabled="!asker.length" class="form-control inputFormat" placeholder="ابحث عن سؤال"/ >
+                </div>
+            </form>
+
+            <div class="col-xs-12 col-md-2">
+                <div class="">
+                    <div class="resultCount" ng-if="resultCount">
+                        عدد النتائج : {{resultCount }}
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="container" >
+    <div class="row question">
+        <div class="row" ng-repeat="question in questions" >
+
+
+            <div class="questionStyle col-sm-12 col-xs-12">
+                <div class="qustionTitle" style="{{question.category}}">
+                    <div style="margin-right: 20px;" >
+                    <a ui-sref="questions({ask_name: question.owner.ask_id})" style="color:white">{{question.owner.name}}
+                    </a>
+                    </div>
+                </div>
+                <div class="questionCustom" ng-bind-html="question.q_html | highlighttextfilter:q"  ></div>
+                <div class="answerCustom" >
+                    <a style="float: right;" href="{{ 'https://ask.fm/' + question.owner.ask_id }}" target="_blank" >
+                        <img  class="innerImage" ng-src="{{question.owner.image_path}}" class="imageCustom img-responsive"  />
+                     </a>
+                    <div ng-bind-html="question.answer_html | highlighttextfilter:q" style="margin-right: 65px;">
+                    </div>
+
+
+                </div>
+                <div class="footer" >
+                    <div class="time">
+                        <a href="{{ 'https://ask.fm' + question.href }}" target="_blank" >
+                            <img src="/static/templates/images/ask.png" style="width: 30px;height: 30px;" />
+                        </a>
+                       <a ui-sref="question({id: question.id})">
+                            {{question.q_stime }}
+                        </a>
+                    </div>
+                </div>
+
+                 <div  class="fb-comments" ng-if="questions.length == 1" data-colorscheme="light" style="float:right" data-href={{'https://dev-fatwa.rhcloud.com/#/question/'+question.id}} data-num-posts="4" mobile="auto-detect" data-mobile="auto-detect" data-width="250"></div>
+
+            </div>
+
+        </div>
+
+
+
+        <button class="btn button-label btn-info droidFont col-sm-12" style="margin-top:20px;margin-bottom:10px" ng-if="next" ng-click="getNext(next)">
+        +     المزيد
+        </button>
+
+
+
+
+    </div>
+
+    <div ng-if="noResult"  class="noResult col-sm-12" >
+    لا يوجد نتائج
+    </div>
+
+<!--<div  class="fb-comments fbStyle" ng-if="questions.length && questions.length != 1" data-colorscheme="light" style="float:right" data-href='https://dev-fatwa.rhcloud.com/' data-num-posts="4" mobile="auto-detect" data-mobile="auto-detect" data-width="250"></div>-->
+
+</div>
+
+<canvascloud items="askers" ng-show="!showLoading" class="canvasStyle"/>
+
+
+</div>

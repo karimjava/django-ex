@@ -1,0 +1,22 @@
+<div class="btn-group" style=" width: 100%;">
+	<button class="btn button-label btn-info droidFont askerButton" data-toggle="dropdown" >
+
+			{{currentItemLabel}}
+
+	</button>
+	<button class="btn btn-info dropdown-toggle" style="height: 35px;padding-left: 10px !important;" data-toggle="dropdown">
+		<span class="caret"></span>
+	</button>
+ <ul class="dropdown-menu">
+ 	<li ng-repeat="item in items" ng-click="cancelClose($event)" ng-class="{red: hover,blue:setCheckboxChecked(item)}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+                <div class="input-group" style="width: 100%;">
+
+                	<a  style="float: right;text-align: right;width: 90%;" ui-sref="questions({ask_name: item.ask_id})">
+        				<span  class="droidFont" style="height:40">{{item.name}}</span>
+        				<img ng-src="{{item.image_path}}" class="imageRoundCustom" width="40" height="40">
+    				</a>
+    				<input type="checkbox" ng-if="!item.notShow" class="checkboxStyle" ng-checked="setCheckboxChecked(item);"  ng-click="selectVal(item,$index);">
+            	</div>
+    </li>
+ </ul>
+</div>

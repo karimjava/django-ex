@@ -1,0 +1,17 @@
+<div style="height: 100%;
+    background-color: #f0f1f1;
+    padding: 10%;">
+    <label style="font-size: 50px;
+    text-align: center;
+    width: 100%;
+    font-family: DroidSansArabic !important;
+    margin-top: 50px;">نتيجة الثانوية الأزهرية</label>
+    <input ng-model="result.phone_number" class="form-control inputFormat" style="width: 100%;
+    margin-top: 50px;" placeholder="ادخل رقم الهاتف" />
+     <input ng-model="result.number_id" class="form-control inputFormat" style="width: 100%;
+    margin-top: 20px;" placeholder="ادخل رقم الجلوس" />
+     <button  ng-click="submit(result)" class="btn btn-info" style="margin-top: 20px;
+    font-size: 20px;
+    font-family: DroidSansArabic !important;"> الحصول على النتيجة </button>
+     <label style="font-size: 20px;">{{info}}</label>
+</div>
